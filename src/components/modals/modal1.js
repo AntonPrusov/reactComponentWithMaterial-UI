@@ -26,6 +26,8 @@ let initRooms = [
         }
     ];
 
+let init = JSON.stringify(initRooms);
+
 function getModalStyle() {
     const top = 50;
     const left = 50;
@@ -66,7 +68,7 @@ class SimpleModal extends React.Component {
 
     state = {
         open: false,
-        rooms: Object.assign([], initRooms),
+        rooms: JSON.parse(init)
     };
 
     rooms = [];
@@ -82,44 +84,42 @@ class SimpleModal extends React.Component {
     };
 
     handleClose = () => {
-        this.setState({ rooms: Object.assign([], initRooms), });
-        this.setState({ open: false });
+        let data = JSON.stringify(initRooms);
+        this.setState({ rooms: JSON.parse(data), open: false });
+        this.rooms = [...this.state.rooms];
     };
 
     saveData = () => {
-        initRooms = Object.assign([], this.state.rooms);
+        let data = JSON.stringify(this.state.rooms)
+        initRooms = JSON.parse(data);
         this.setState({ open: false });
     };
 
     addField = () => {
-        this.rooms = this.state.rooms;
+        this.rooms = [...this.state.rooms];
         this.rooms.push({
             type: '',
             quantity: ''
         });
-        this.setState({rooms: this.rooms});
+        this.setState({ rooms: [...this.rooms] });
     };
 
     handleChangeSelect = index => event => {
-        this.rooms = this.state.rooms;
+        this.rooms = [...this.state.rooms];
         this.rooms[index].type = event.target.value;
-        this.setState({
-            rooms: this.rooms,
-        });
+        this.setState({ rooms: [...this.rooms] });
     };
 
     handleChangeInput = index => event => {
-        this.rooms = this.state.rooms;
-        this.rooms[index].quantity = event.target.value;
-        this.setState({
-            rooms: this.rooms
-        });
+        this.rooms = [...this.state.rooms];
+        this.rooms[index].quantity = +event.target.value;
+        this.setState({ rooms: [...this.rooms] });
     };
 
     deleteField = index => () => {
-        this.rooms = this.state.rooms;
+        this.rooms = [...this.state.rooms];
         this.rooms.splice(index, 1);
-        this.setState({rooms: this.rooms});
+        this.setState({ rooms: [...this.rooms] });
     };
 
     render() {
