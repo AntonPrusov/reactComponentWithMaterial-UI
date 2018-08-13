@@ -11,7 +11,20 @@ import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 import TextField from "@material-ui/core/TextField";
 
-let initRooms = [];
+let initRooms = [
+        {
+            type: 'Twin',
+            quantity: 22
+        },
+        {
+            type: 'Triple',
+            quantity: 12
+        },
+        {
+            type: 'Quadro',
+            quantity: 4
+        }
+    ];
 
 function getModalStyle() {
     const top = 50;
@@ -103,6 +116,7 @@ class SimpleModal extends React.Component {
     };
 
     deleteField = index => () => {
+        this.rooms = this.state.rooms;
         this.rooms.splice(index, 1);
         this.setState({rooms: this.rooms});
     };
