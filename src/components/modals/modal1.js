@@ -109,6 +109,7 @@ class SimpleModal extends React.Component {
     };
 
     handleChangeInput = index => event => {
+        this.rooms = this.state.rooms;
         this.rooms[index].quantity = event.target.value;
         this.setState({
             rooms: this.rooms
